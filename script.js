@@ -56,7 +56,7 @@ function shuffleArray(array) {
 // Crea las cartas en el tablero
 function renderCards() {
     gameBoard.innerHTML = '';
-    gameBoard.style.gridTemplateColumns = `repeat(${Math.ceil(Math.sqrt(cards.length))}, 1fr)`;
+    gameBoard.style.gridTemplateColumns = `repeat(3, 1fr)`;
   
     cards.forEach((card, index) => {
       const cardElement = document.createElement('div');
