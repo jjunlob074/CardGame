@@ -123,6 +123,22 @@ function checkMatch() {
       // Si hemos emparejado todas las cartas, avanzamos al siguiente nivel
       if (matchedPairs === cards.length / 2) {
         levelComplete.play();
+        confetti({
+          particleCount: 100, 
+          spread: 70,        
+          origin: { y: 0.6 }, 
+          colors: [
+            '#ff0', '#ff6347', '#32cd32', '#00bfff', '#ff1493', '#adff2f', 
+            '#8a2be2', '#ff4500', '#00fa9a', '#ffd700', '#ff69b4', '#f0e68c',
+            '#ff00ff', '#7fff00', '#ff8c00', '#ba55d3', '#800000', '#008000', 
+            '#ff77ff', '#d2691e', '#ff1493', '#ff6347', '#40e0d0', '#ffff00',
+            '#4b0082', '#0000ff', '#00ff7f', '#ff00ff', '#c71585', '#ffb6c1',
+            '#a52a2a', '#7cfc00', '#ff8c00', '#cd5c5c', '#f4a460', '#8b0000',
+            '#f08080', '#a9a9a9', '#e9967a', '#ff4500', '#daa520', '#b22222',
+            '#f4a460', '#4682b4', '#7b68ee', '#ff6347', '#bdb76b', '#98fb98',
+            '#b0e0e6', '#d3d3d3', '#ffdead', '#deb887', '#5f9ea0', '#66cdaa'
+          ],
+        });
         setTimeout(nextLevel, 1000);
       }
     } else {
@@ -153,6 +169,7 @@ function checkMatch() {
   }
   
 
+// Avanza al siguiente nivel
 // Avanza al siguiente nivel
 function nextLevel() {
   level++;
