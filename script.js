@@ -168,6 +168,9 @@ function gameOver() {
   alert('Fin del juego. has llegado al nivel ' + levelDisplay.textContent);
   level = 1;
   attempts = 10;
+  cards = [];
+  flippedCards = [];
+  matchedPairs = 0;
   levelDisplay.textContent = level;
   attemptsDisplay.textContent = attempts;
   initGame();
