@@ -123,7 +123,7 @@ function checkMatch() {
       // Si hemos emparejado todas las cartas, avanzamos al siguiente nivel
       if (matchedPairs === cards.length / 2) {
         levelComplete.play();
-        setTimeout(nextLevel, 3000);
+        setTimeout(nextLevel, 1000);
       }
     } else {
       // Reproducir el sonido de fallo
@@ -165,7 +165,7 @@ function nextLevel() {
 
 // Termina el juego
 function gameOver() {
-  alert('¡Fin del juego! Intenta de nuevo.');
+  alert('Fin del juego. has llegado al nivel ' + levelDisplay.textContent);
   level = 1;
   attempts = 10;
   levelDisplay.textContent = level;
