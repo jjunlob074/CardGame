@@ -2,10 +2,12 @@ const gameBoard = document.getElementById('game-board');
 const levelDisplay = document.getElementById('level');
 const attemptsDisplay = document.getElementById('attempts');
 const restartButton = document.getElementById('restart');
+const bonusMessage = document.getElementById('bonusMessage');
 const matchSound = new Audio('./correct.mp3');
 const levelComplete = new Audio('./success.mp3');
 const failSound = new Audio('./wrong.mp3');
 let level = 1;
+let bonus = 0;
 let attempts = 10;
 let cards = [];
 let flippedCards = [];
@@ -29,11 +31,21 @@ const icons = [
 function getRandomColor() {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
+// Función para mostrar el mensaje de bonus
+function showBonusMessage() {
+  bonusMessage.textContent = "Bonus+1";
+  bonusMessage.classList.add('show');
+  
+  // Desaparece después de 2 segundos
+  setTimeout(() => {
+    bonusMessage.classList.remove('show');
+  }, 1500);
+}
 
 // Genera las cartas para el nivel actual
 function generateCards() {
   const levelCards = [];
-  const numPairs = level + 2;
+  const numPairs = level + 1;
   const chosenIcons = icons.slice(0, numPairs); // Selecciona los íconos necesarios para el nivel
 
   for (let i = 0; i < numPairs; i++) {
@@ -56,7 +68,7 @@ function shuffleArray(array) {
 // Crea las cartas en el tablero
 function renderCards() {
     gameBoard.innerHTML = '';
-    gameBoard.style.gridTemplateColumns = `repeat(3, 1fr)`;
+    gameBoard.style.gridTemplateColumns = `repeat(4, 1fr)`;
   
     cards.forEach((card, index) => {
       const cardElement = document.createElement('div');
@@ -122,6 +134,10 @@ function checkMatch() {
   
       // Si hemos emparejado todas las cartas, avanzamos al siguiente nivel
       if (matchedPairs === cards.length / 2) {
+        if (attempts > level + 4){
+          bonus += 1
+          showBonusMessage()
+        } 
         levelComplete.play();
         confetti({
           particleCount: 100, 
@@ -170,11 +186,10 @@ function checkMatch() {
   
 
 // Avanza al siguiente nivel
-// Avanza al siguiente nivel
 function nextLevel() {
   level++;
   levelDisplay.textContent = level;
-  attempts = 10; // Intentos fijos para cada nivel
+  attempts = 10 + (level-1) + bonus;
   attemptsDisplay.textContent = attempts;
   matchedPairs = 0;
   initGame();
@@ -188,6 +203,7 @@ function gameOver() {
   cards = [];
   flippedCards = [];
   matchedPairs = 0;
+  bonus = 0;
   levelDisplay.textContent = level;
   attemptsDisplay.textContent = attempts;
   initGame();
